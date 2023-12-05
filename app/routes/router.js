@@ -57,7 +57,7 @@ router.post(
           }
 
         }
-        res.redirect(process.env.CYCLIC_URL);
+        res.redirect("/");
       }
     );
     }catch(e){
