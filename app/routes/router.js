@@ -41,15 +41,18 @@ router.post(
     var result = conexao.query(
       "SELECT * FROM usuario WHERE user_usuario = ? or email_usuario = ?",
       [dadosForm.user_usuario, dadosForm.user_usuario],
+
       function (error, results, fields) {
         if (error) throw error;
         var total = Object.keys(results).length;
-
+        console.log(results);
         if (total == 1) {
           if (bcrypt.compareSync(dadosForm.senha_usuario, results[0].senha_usuario)) {
             req.session.autenticado = true;
             req.session.usu_autenticado = results[0].nome_usuario;
             req.session.usu_tipo = results[0].tipo_usuario;
+            console.log(req.session.autenticado);
+            console.log(req.session.usu_autenticado);
           }
 
         }
