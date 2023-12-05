@@ -6,6 +6,9 @@ dotenv.config();
 const port = process.env.PORT; 
 
 var session = require("express-session");
+app.use(enforce.HTTPS({
+  trustProtoHeader: true
+}));
 
 app.use(express.static("./app/public"));
 
