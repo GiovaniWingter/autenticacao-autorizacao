@@ -46,6 +46,7 @@ router.post(
         if (error) throw error;
         var total = Object.keys(results).length;
         console.log(results);
+        console.log(total);
         if (total == 1) {
           if (bcrypt.compareSync(dadosForm.senha_usuario, results[0].senha_usuario)) {
             req.session.autenticado = true;
