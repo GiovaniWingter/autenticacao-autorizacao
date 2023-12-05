@@ -7,7 +7,6 @@ const port = process.env.PORT;
 
 var session = require("express-session");
 
-
 app.use(express.static("./app/public"));
 
 app.set("view engine", "ejs");
