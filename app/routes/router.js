@@ -45,15 +45,11 @@ router.post(
       function (error, results, fields) {
         if (error) throw error;
         var total = Object.keys(results).length;
-        console.log(results);
-        console.log(total);
         if (total == 1) {
           if (bcrypt.compareSync(dadosForm.senha_usuario, results[0].senha_usuario)) {
             req.session.autenticado = true;
             req.session.usu_autenticado = results[0].nome_usuario;
             req.session.usu_tipo = results[0].tipo_usuario;
-            console.log(req.session.autenticado);
-            console.log(req.session.usu_autenticado);
           }
 
         }
@@ -79,7 +75,7 @@ router.post("/cadastro", function (req, res) {
     dadosForm,
     function (error, results, fields) {
       if (error) throw error;
-      res.redirect(process.env.CYCLIC_URL);
+      res.redirect("/");
     }
   );
 });

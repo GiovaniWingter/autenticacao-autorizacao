@@ -22,23 +22,6 @@ app.use(
       resave: false,
       saveUninitialized: false,
 }));
-
-// app.use(
-//     session({
-//       secret: "keyboard cat",
-//       resave: false,
-//       saveUninitialized: true,
-//       proxy: true, // Required for Heroku & Digital Ocean (regarding X-Forwarded-For)
-//       name: 'MyCoolWebAppCookieName', // This needs to be unique per-host.
-//       cookie: {
-//         secure: true, // required for cookies to work on HTTPS
-//         httpOnly: false,
-//         sameSite: 'none'
-//       }
-//     }));
-
-
-
   
 var rotas = require("./app/routes/router");
 app.use("/", rotas);
