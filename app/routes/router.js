@@ -4,6 +4,8 @@ var bcrypt = require("bcryptjs");
 var salt = bcrypt.genSaltSync(12);
 var fabricaDeConexao = require("../../config/connection-factory");
 var conexao = fabricaDeConexao();
+const dotenv = require('dotenv');
+dotenv.config();
 
 router.get("/", function (req, res) {
   if (req.session.autenticado) {
@@ -35,25 +37,28 @@ router.post(
       user_usuario: req.body.nome_usu,
       senha_usuario: req.body.senha_usu,
     };
-
+    try{
     var result = conexao.query(
       "SELECT * FROM usuario WHERE user_usuario = ? or email_usuario = ?",
       [dadosForm.user_usuario, dadosForm.user_usuario],
       function (error, results, fields) {
         if (error) throw error;
         var total = Object.keys(results).length;
-        
+
         if (total == 1) {
-          if (bcrypt.compareSync(dadosForm.senha_usuario,results[0].senha_usuario)) {
+          if (bcrypt.compareSync(dadosForm.senha_usuario, results[0].senha_usuario)) {
             req.session.autenticado = true;
             req.session.usu_autenticado = results[0].nome_usuario;
             req.session.usu_tipo = results[0].tipo_usuario;
           }
-          
+
         }
-        res.redirect("/");
+        res.redirect(process.env.CYCLIC_URL);
       }
     );
+    }catch(e){
+      console.log(e);
+    }
   }
 );
 
@@ -70,7 +75,7 @@ router.post("/cadastro", function (req, res) {
     dadosForm,
     function (error, results, fields) {
       if (error) throw error;
-      res.redirect("/");
+      res.redirect(process.env.CYCLIC_URL);
     }
   );
 });
